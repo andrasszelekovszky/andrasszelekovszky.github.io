@@ -1,0 +1,143 @@
+<title>Szelekovszky Studio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&display=swap">
+
+<style>
+/* Layout: one narrow column, one typeface, two weights. Name, one line, the works, the terms, an address. */
+:root{
+  --paper:#f0f0ef;
+  --ink:#16181a;
+  --muted:#6b7173;
+  --rule:#d8dad9;
+  --panel:#e7e9e8;
+  --accent:#2f3f8f;
+  --sans:"Instrument Sans",Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#121314; --ink:#e9eae9; --muted:#9aa0a1; --rule:#292c2d;
+    --panel:#1b1d1e; --accent:#93a6ff; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#121314; --ink:#e9eae9; --muted:#9aa0a1; --rule:#292c2d;
+  --panel:#1b1d1e; --accent:#93a6ff; color-scheme:dark;
+}
+
+body{background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-weight:400;font-size:15px;line-height:1.5;letter-spacing:-0.005em;
+  -webkit-font-smoothing:antialiased;}
+.wrap{max-width:520px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:clamp(56px,13vh,120px);
+  display:flex;flex-direction:column;gap:clamp(48px,9vw,76px);}
+p{margin:0;}
+a{color:inherit;}
+:focus-visible{outline:1px solid var(--accent);outline-offset:3px;}
+
+.head{display:flex;flex-direction:column;gap:16px;}
+.name{font-weight:500;}
+.intro{color:var(--muted);max-width:48ch;}
+
+.works{display:flex;flex-direction:column;gap:clamp(44px,8vw,68px);}
+.work{display:flex;flex-direction:column;gap:10px;min-width:0;}
+.plate{background:var(--panel);max-width:100%;display:grid;place-items:center;}
+.plate span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.plate img{display:block;width:100%;height:100%;object-fit:contain;}
+.work h2{margin:0;font-size:15px;font-weight:500;letter-spacing:-0.005em;}
+.work h2 .yr{font-weight:400;color:var(--muted);}
+.meta{color:var(--muted);}
+.line{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;font-variant-numeric:tabular-nums;}
+.buy{text-decoration:none;color:var(--accent);border-bottom:1px solid var(--accent);padding-bottom:1px;}
+.buy:hover{opacity:.6;}
+.work.sold .line{color:var(--muted);}
+
+.foot{display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--rule);padding-top:26px;
+  color:var(--muted);}
+.mail{color:var(--ink);user-select:all;}
+.copy{font-family:inherit;font-size:12px;background:none;border:1px solid var(--rule);
+  color:var(--muted);padding:5px 11px;cursor:pointer;}
+.copy:hover{border-color:var(--accent);color:var(--accent);}
+.mailrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+.note{font-size:13px;color:var(--muted);border-left:1px solid var(--accent);padding-left:14px;}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+
+<div class="wrap">
+
+  <header class="head">
+    <p class="name">András Szelekovszky</p>
+    <p class="intro">Painting and works on paper. Each piece is unique, signed and dated verso, and sent from Zürich.</p>
+  </header>
+
+  <p class="note">Placeholder entries — replace with your works: title, year, medium and support, size in cm, price.</p>
+
+  <main class="works">
+
+    <article class="work">
+      <div class="plate" style="aspect-ratio:4/5"><span>Image — 4:5</span></div>
+      <h2>Untitled (Morning Field) <span class="yr">2026</span></h2>
+      <p class="meta">Oil on linen · 80 × 65 cm</p>
+      <p class="line">CHF 2,400 <a class="buy" href="#" data-stripe>Acquire</a></p>
+    </article>
+
+    <article class="work">
+      <div class="plate" style="aspect-ratio:3/4"><span>Image — 3:4</span></div>
+      <h2>Study for a Window I <span class="yr">2026</span></h2>
+      <p class="meta">Gouache and graphite on Arches 300 g · 56 × 42 cm</p>
+      <p class="line">CHF 780 <a class="buy" href="#" data-stripe>Acquire</a></p>
+    </article>
+
+    <article class="work sold">
+      <div class="plate" style="aspect-ratio:1/1"><span>Image — 1:1</span></div>
+      <h2>Nocturne (Limmat) <span class="yr">2025</span></h2>
+      <p class="meta">Oil on panel · 50 × 50 cm</p>
+      <p class="line">Sold</p>
+    </article>
+
+    <article class="work">
+      <div class="plate" style="aspect-ratio:5/4"><span>Image — 5:4</span></div>
+      <h2>Interior, Late Light <span class="yr">2025</span></h2>
+      <p class="meta">Oil on linen · 110 × 140 cm</p>
+      <p class="line">CHF 4,900 <a class="buy" href="#" data-stripe>Acquire</a></p>
+    </article>
+
+    <article class="work">
+      <div class="plate" style="aspect-ratio:3/4"><span>Image — 3:4</span></div>
+      <h2>Ink Drawing (Sheet 4) <span class="yr">2024</span></h2>
+      <p class="meta">Indian ink on Fabriano · 42 × 30 cm</p>
+      <p class="line">CHF 420 <a class="buy" href="#" data-stripe>Acquire</a></p>
+    </article>
+
+  </main>
+
+  <footer class="foot">
+    <p>Card payment in CHF at checkout. Invoice and certificate with every sale. Shipping Switzerland CHF 25, EU from CHF 60, elsewhere quoted. Damage in transit: tell me within seven days and keep the packaging.</p>
+    <div class="mailrow">
+      <span class="mail" id="mail">studio@your-domain.ch</span>
+      <button class="copy" id="copy" type="button">Copy</button>
+    </div>
+    <p><a href="https://instagram.com/andrasszelekovszky">@andrasszelekovszky</a></p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var btn=document.getElementById('copy'), mail=document.getElementById('mail');
+  function select(){
+    var r=document.createRange(); r.selectNodeContents(mail);
+    var s=getSelection(); s.removeAllRanges(); s.addRange(r);
+    btn.textContent='Select and copy';
+  }
+  btn.addEventListener('click',function(){
+    try{
+      navigator.clipboard.writeText(mail.textContent.trim()).then(function(){
+        btn.textContent='Copied'; setTimeout(function(){btn.textContent='Copy';},1600);
+      },select);
+    }catch(e){select();}
+  });
+})();
+</script>
