@@ -17,7 +17,7 @@
 const WORKS = [
 
   {
-    title: "Rituale",
+    title: "Momentum",
     year:  "2025",
     medium:"Oil on canvas",
     size:  "10 × 10 cm",
@@ -29,7 +29,7 @@ const WORKS = [
   },
 
   {
-    title: "Rituale",
+    title: "Momentum",
     year:  "2025",
     medium:"Oil on canvas",
     size:  "10 × 10 cm",
