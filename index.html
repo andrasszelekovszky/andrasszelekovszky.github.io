@@ -135,7 +135,14 @@ a{color:inherit;}
   ig.textContent = '@' + STUDIO.instagram;
   ig.href = 'https://instagram.com/' + STUDIO.instagram;
 
-  document.getElementById('works').innerHTML = WORKS.map(function(w){
+  // oldest first; works of the same year keep the order they have in works.js
+  var ordered = WORKS.map(function(w,i){ return [w,i]; })
+    .sort(function(a,b){
+      return (parseInt(a[0].year,10)||0) - (parseInt(b[0].year,10)||0) || a[1]-b[1];
+    })
+    .map(function(p){ return p[0]; });
+
+  document.getElementById('works').innerHTML = ordered.map(function(w){
     var ratio = w.ratio || '4/5';
     function plate(src, label){
       return '<div class="plate" style="aspect-ratio:' + esc(ratio) + '">'
