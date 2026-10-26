@@ -36,7 +36,7 @@ const WORKS = [
 
 const STUDIO = {
   name:      "András Szelekovszky",
-  intro:     "Painting and works on paper. Each piece is unique, signed and dated verso, and sent from Zürich.",
+  intro:     "",
   terms:     "Works are sold directly from the studio. Write about any piece and I will confirm availability, shipping and payment by bank transfer. An invoice and a certificate of authenticity come with every sale. Shipping Switzerland CHF 25, EU from CHF 60, elsewhere quoted.",
   email:     "andras.szelekovszky@gmail.com",
   instagram: "andrasszelekovszky"

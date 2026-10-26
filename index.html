@@ -127,7 +127,9 @@ a{color:inherit;}
   var esc = function(s){ var d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; };
 
   document.getElementById('name').textContent  = STUDIO.name;
-  document.getElementById('intro').textContent = STUDIO.intro;
+  var introEl = document.getElementById('intro');
+  introEl.textContent = STUDIO.intro || '';
+  introEl.hidden = !STUDIO.intro;
   document.getElementById('terms').textContent = STUDIO.terms;
   var ig = document.getElementById('ig');
   ig.textContent = '@' + STUDIO.instagram;
