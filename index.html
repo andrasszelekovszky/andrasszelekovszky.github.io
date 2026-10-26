@@ -4,8 +4,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&display=swap">
 
 <style>
-/* Layout: one narrow column, one typeface, two weights.
-   All content lives in works.js — this file is the frame only. */
+/* Layout: phone — one column, images as a swipe slider (front, then back).
+   Desktop — a fixed left column with the studio details, works to the right,
+   each work showing front and back side by side. All content lives in works.js. */
 :root{
   --paper:#f0f0ef;
   --ink:#16181a;
@@ -44,6 +45,8 @@ a{color:inherit;}
 
 .works{display:flex;flex-direction:column;gap:clamp(44px,8vw,68px);}
 .work{display:flex;flex-direction:column;gap:10px;min-width:0;}
+
+/* phone: horizontal snap slider */
 .plates{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
   -webkit-overflow-scrolling:touch;}
 .plates::-webkit-scrollbar{display:none;}
@@ -54,10 +57,11 @@ a{color:inherit;}
 .dots{display:flex;gap:6px;justify-content:center;margin-top:-2px;}
 .dots i{width:5px;height:5px;border-radius:50%;background:var(--rule);display:block;}
 .dots i.on{background:var(--muted);}
+
+.meta{color:var(--muted);}
 .work h2{margin:0;font-size:15px;font-weight:500;letter-spacing:-0.005em;}
 .work h2 .yr{font-weight:400;color:var(--muted);}
-.meta{color:var(--muted);}
-.line{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;font-variant-numeric:tabular-nums;}
+.line{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-variant-numeric:tabular-nums;}
 .buy{text-decoration:none;color:var(--accent);border:1px solid var(--accent);
   padding:6px 13px;font-size:13px;}
 .buy:hover{background:var(--accent);color:var(--paper);}
@@ -70,7 +74,28 @@ a{color:inherit;}
   color:var(--muted);padding:5px 11px;cursor:pointer;}
 .copy:hover{border-color:var(--accent);color:var(--accent);}
 .mailrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+/* ── desktop ───────────────────────────────────────────────── */
+@media (min-width:900px){
+  body{font-size:16px;}
+  .wrap{max-width:1180px;
+    display:grid;grid-template-columns:300px minmax(0,1fr);
+    column-gap:72px;row-gap:0;align-items:start;
+    padding-block:96px;}
+  .head{grid-column:1;position:sticky;top:96px;gap:20px;}
+  .works{grid-column:2;grid-row:1 / span 2;gap:88px;}
+  .foot{grid-column:1;position:sticky;top:300px;margin-top:32px;border-top:1px solid var(--rule);}
+
+  /* both images visible, no swiping */
+  .plates{display:grid;grid-template-columns:1fr 1fr;gap:10px;overflow:visible;}
+  .plate{flex:none;}
+  .dots{display:none;}
+  .work{gap:12px;}
+}
+@media (min-width:1280px){
+  .wrap{column-gap:96px;}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important;}}
 </style>
 
 <div class="wrap">
@@ -110,7 +135,7 @@ a{color:inherit;}
     var ratio = w.ratio || '4/5';
     function plate(src, label){
       return '<div class="plate" style="aspect-ratio:' + esc(ratio) + '">'
-        + (src ? '<img src="' + esc(src) + '" alt="' + esc(w.title) + ' — ' + label + '">'
+        + (src ? '<img src="' + esc(src) + '" alt="' + esc(w.title) + ' — ' + label + '" loading="lazy">'
                : '<span>' + esc(label) + '</span>')
         + '</div>';
     }
@@ -118,6 +143,7 @@ a{color:inherit;}
       ? '<div class="plates">' + plate(w.image,'Front') + plate(w.verso,'Back') + '</div>'
         + '<div class="dots"><i class="on"></i><i></i></div>'
       : '<div class="plates">' + plate(w.image,'Image — ' + ratio) + '</div>';
+
     var subject = encodeURIComponent('Enquiry — ' + w.title + ' (' + w.year + ')');
     var body = encodeURIComponent(
       'Hello András,\n\nI am interested in ' + w.title + ' (' + w.year + '), '
@@ -127,6 +153,7 @@ a{color:inherit;}
       : esc(w.price)
         + ' <a class="buy" href="mailto:' + esc(STUDIO.email) + '?subject=' + subject
         + '&body=' + body + '">Enquire</a>';
+
     return '<article class="work' + (w.sold ? ' sold' : '') + '">'
       + plates
       + '<h2>' + esc(w.title) + ' <span class="yr">' + esc(w.year) + '</span></h2>'
