@@ -1,5 +1,10 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Szelekovszky Studio</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Paintings and works on paper by András Szelekovszky, sold directly from the studio in Zürich.">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&display=swap">
 
@@ -7,7 +12,12 @@
 /* Layout: phone — one column, images as a swipe slider (front, then back).
    Desktop — a fixed left column with the studio details, works to the right,
    each work showing front and back side by side. All content lives in works.js. */
+*{box-sizing:border-box;}
+html,body{margin:0;}
+img{max-width:100%;}
 :root{
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
   --paper:#f0f0ef;
   --ink:#16181a;
   --muted:#6b7173;
@@ -92,6 +102,8 @@ a{color:inherit;}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important;}}
 </style>
+</head>
+<body>
 
 <div class="wrap">
 
@@ -163,3 +175,5 @@ a{color:inherit;}
 
 })();
 </script>
+</body>
+</html>
