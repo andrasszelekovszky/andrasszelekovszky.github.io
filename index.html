@@ -58,8 +58,9 @@ a{color:inherit;}
 .work h2 .yr{font-weight:400;color:var(--muted);}
 .meta{color:var(--muted);}
 .line{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;font-variant-numeric:tabular-nums;}
-.buy{text-decoration:none;color:var(--accent);border-bottom:1px solid var(--accent);padding-bottom:1px;}
-.buy:hover{opacity:.6;}
+.buy{text-decoration:none;color:var(--accent);border:1px solid var(--accent);
+  padding:6px 13px;font-size:13px;}
+.buy:hover{background:var(--accent);color:var(--paper);}
 .work.sold .line{color:var(--muted);}
 
 .foot{display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--rule);padding-top:26px;
@@ -117,9 +118,15 @@ a{color:inherit;}
       ? '<div class="plates">' + plate(w.image,'Front') + plate(w.verso,'Back') + '</div>'
         + '<div class="dots"><i class="on"></i><i></i></div>'
       : '<div class="plates">' + plate(w.image,'Image — ' + ratio) + '</div>';
+    var subject = encodeURIComponent('Enquiry — ' + w.title + ' (' + w.year + ')');
+    var body = encodeURIComponent(
+      'Hello András,\n\nI am interested in ' + w.title + ' (' + w.year + '), '
+      + w.medium + ', ' + w.size + ', ' + w.price + '.\n\nCould you tell me about availability and shipping?\n\n');
     var line = w.sold
       ? 'Sold'
-      : esc(w.price) + (w.buy ? ' <a class="buy" href="' + esc(w.buy) + '">Acquire</a>' : '');
+      : esc(w.price)
+        + ' <a class="buy" href="mailto:' + esc(STUDIO.email) + '?subject=' + subject
+        + '&body=' + body + '">Enquire</a>';
     return '<article class="work' + (w.sold ? ' sold' : '') + '">'
       + plates
       + '<h2>' + esc(w.title) + ' <span class="yr">' + esc(w.year) + '</span></h2>'

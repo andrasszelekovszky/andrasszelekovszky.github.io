@@ -6,11 +6,12 @@
    To mark one sold: change  sold: false  to  sold: true
 
    image  → front of the work: "images/filename.jpg"
-   verso  → back of the work, shown beside it. Always send me
-            both photos. Leave "" and only the front shows.
+   verso  → back of the work, second slide. Always send both.
    ratio  → shape of the photos: "1/1" square, "4/5" tall,
             "5/4" wide, "3/4" tall. Match the crop.
-   buy    → Stripe Payment Link. Leave "" and no button shows.
+
+   Every available work shows an Enquire button that opens an
+   email to you with the work's details already written in.
    ─────────────────────────────────────────────────────────────── */
 
 const WORKS = [
@@ -20,11 +21,10 @@ const WORKS = [
     year:  "2023",
     medium:"Oil on canvas",
     size:  "10 × 10 cm",
-    price: "EUR 1,000",
+    price: "CHF 950",
     image: "images/rituale-2023.jpg",
     verso: "images/rituale-2023-verso.jpg",
     ratio: "1/1",
-    buy:   "",
     sold:  false
   }
 
@@ -37,7 +37,7 @@ const WORKS = [
 const STUDIO = {
   name:      "András Szelekovszky",
   intro:     "Painting and works on paper. Each piece is unique, signed and dated verso, and sent from Zürich.",
-  terms:     "Card payment at checkout. Invoice and certificate with every sale. Shipping Switzerland CHF 25, EU from CHF 60, elsewhere quoted. Damage in transit: tell me within seven days and keep the packaging.",
-  email:     "studio@your-domain.ch",
+  terms:     "Works are sold directly from the studio. Write about any piece and I will confirm availability, shipping and payment by bank transfer. An invoice and a certificate of authenticity come with every sale. Shipping Switzerland CHF 25, EU from CHF 60, elsewhere quoted.",
+  email:     "lebowski10@protonmail.com",
   instagram: "andrasszelekovszky"
 };
