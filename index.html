@@ -4,7 +4,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&display=swap">
 
 <style>
-/* Layout: one narrow column, one typeface, two weights. Name, one line, the works, the terms, an address. */
+/* Layout: one narrow column, one typeface, two weights.
+   All content lives in works.js — this file is the frame only. */
 :root{
   --paper:#f0f0ef;
   --ink:#16181a;
@@ -43,9 +44,9 @@ a{color:inherit;}
 
 .works{display:flex;flex-direction:column;gap:clamp(44px,8vw,68px);}
 .work{display:flex;flex-direction:column;gap:10px;min-width:0;}
-.plate{background:var(--panel);max-width:100%;display:grid;place-items:center;}
+.plate{background:var(--panel);max-width:100%;display:grid;place-items:center;overflow:hidden;}
 .plate span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
-.plate img{display:block;width:100%;height:100%;object-fit:contain;}
+.plate img{display:block;width:100%;height:100%;object-fit:cover;}
 .work h2{margin:0;font-size:15px;font-weight:500;letter-spacing:-0.005em;}
 .work h2 .yr{font-weight:400;color:var(--muted);}
 .meta{color:var(--muted);}
@@ -61,71 +62,57 @@ a{color:inherit;}
   color:var(--muted);padding:5px 11px;cursor:pointer;}
 .copy:hover{border-color:var(--accent);color:var(--accent);}
 .mailrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
-.note{font-size:13px;color:var(--muted);border-left:1px solid var(--accent);padding-left:14px;}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;}}
 </style>
 
 <div class="wrap">
 
   <header class="head">
-    <p class="name">András Szelekovszky</p>
-    <p class="intro">Painting and works on paper. Each piece is unique, signed and dated verso, and sent from Zürich.</p>
+    <p class="name" id="name"></p>
+    <p class="intro" id="intro"></p>
   </header>
 
-  <p class="note">Placeholder entries — replace with your works: title, year, medium and support, size in cm, price.</p>
-
-  <main class="works">
-
-    <article class="work">
-      <div class="plate" style="aspect-ratio:4/5"><span>Image — 4:5</span></div>
-      <h2>Untitled (Morning Field) <span class="yr">2026</span></h2>
-      <p class="meta">Oil on linen · 80 × 65 cm</p>
-      <p class="line">CHF 2,400 <a class="buy" href="#" data-stripe>Acquire</a></p>
-    </article>
-
-    <article class="work">
-      <div class="plate" style="aspect-ratio:3/4"><span>Image — 3:4</span></div>
-      <h2>Study for a Window I <span class="yr">2026</span></h2>
-      <p class="meta">Gouache and graphite on Arches 300 g · 56 × 42 cm</p>
-      <p class="line">CHF 780 <a class="buy" href="#" data-stripe>Acquire</a></p>
-    </article>
-
-    <article class="work sold">
-      <div class="plate" style="aspect-ratio:1/1"><span>Image — 1:1</span></div>
-      <h2>Nocturne (Limmat) <span class="yr">2025</span></h2>
-      <p class="meta">Oil on panel · 50 × 50 cm</p>
-      <p class="line">Sold</p>
-    </article>
-
-    <article class="work">
-      <div class="plate" style="aspect-ratio:5/4"><span>Image — 5:4</span></div>
-      <h2>Interior, Late Light <span class="yr">2025</span></h2>
-      <p class="meta">Oil on linen · 110 × 140 cm</p>
-      <p class="line">CHF 4,900 <a class="buy" href="#" data-stripe>Acquire</a></p>
-    </article>
-
-    <article class="work">
-      <div class="plate" style="aspect-ratio:3/4"><span>Image — 3:4</span></div>
-      <h2>Ink Drawing (Sheet 4) <span class="yr">2024</span></h2>
-      <p class="meta">Indian ink on Fabriano · 42 × 30 cm</p>
-      <p class="line">CHF 420 <a class="buy" href="#" data-stripe>Acquire</a></p>
-    </article>
-
-  </main>
+  <main class="works" id="works"></main>
 
   <footer class="foot">
-    <p>Card payment in CHF at checkout. Invoice and certificate with every sale. Shipping Switzerland CHF 25, EU from CHF 60, elsewhere quoted. Damage in transit: tell me within seven days and keep the packaging.</p>
+    <p id="terms"></p>
     <div class="mailrow">
-      <span class="mail" id="mail">studio@your-domain.ch</span>
+      <span class="mail" id="mail"></span>
       <button class="copy" id="copy" type="button">Copy</button>
     </div>
-    <p><a href="https://instagram.com/andrasszelekovszky">@andrasszelekovszky</a></p>
+    <p><a id="ig" href="#"></a></p>
   </footer>
 
 </div>
 
+<script src="works.js"></script>
 <script>
 (function(){
+  var esc = function(s){ var d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; };
+
+  document.getElementById('name').textContent  = STUDIO.name;
+  document.getElementById('intro').textContent = STUDIO.intro;
+  document.getElementById('terms').textContent = STUDIO.terms;
+  document.getElementById('mail').textContent  = STUDIO.email;
+  var ig = document.getElementById('ig');
+  ig.textContent = '@' + STUDIO.instagram;
+  ig.href = 'https://instagram.com/' + STUDIO.instagram;
+
+  document.getElementById('works').innerHTML = WORKS.map(function(w){
+    var plate = w.image
+      ? '<img src="' + esc(w.image) + '" alt="' + esc(w.title) + '">'
+      : '<span>Image — ' + esc(w.ratio || '4/5') + '</span>';
+    var line = w.sold
+      ? 'Sold'
+      : esc(w.price) + (w.buy ? ' <a class="buy" href="' + esc(w.buy) + '">Acquire</a>' : '');
+    return '<article class="work' + (w.sold ? ' sold' : '') + '">'
+      + '<div class="plate" style="aspect-ratio:' + esc(w.ratio || '4/5') + '">' + plate + '</div>'
+      + '<h2>' + esc(w.title) + ' <span class="yr">' + esc(w.year) + '</span></h2>'
+      + '<p class="meta">' + esc(w.medium) + ' · ' + esc(w.size) + '</p>'
+      + '<p class="line">' + line + '</p>'
+      + '</article>';
+  }).join('');
+
   var btn=document.getElementById('copy'), mail=document.getElementById('mail');
   function select(){
     var r=document.createRange(); r.selectNodeContents(mail);
