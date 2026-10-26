@@ -151,10 +151,11 @@ a{color:inherit;}
     var subject = encodeURIComponent('Enquiry — ' + w.title + ' (' + w.year + ')');
     var body = encodeURIComponent(
       'Hello András,\n\nI am interested in ' + w.title + ' (' + w.year + '), '
-      + w.medium + ', ' + w.size + ', ' + w.price + '.\n\nCould you tell me about availability and shipping?\n\n');
+      + w.medium + ', ' + w.size + (w.price ? ', ' + w.price : '')
+      + '.\n\nCould you tell me about availability and shipping?\n\n');
     var line = w.sold
       ? 'Sold'
-      : esc(w.price)
+      : esc(w.price || 'Price on request')
         + ' <a class="buy" href="mailto:' + esc(STUDIO.email) + '?subject=' + subject
         + '&body=' + body + '">Enquire</a>';
 

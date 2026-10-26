@@ -18,6 +18,18 @@ const WORKS = [
 
   {
     title: "Rituale",
+    year:  "2024",
+    medium:"Oil on canvas",
+    size:  "10 × 10 cm",
+    price: "",
+    image: "images/rituale-2024.jpg",
+    verso: "",
+    ratio: "1/1",
+    sold:  false
+  },
+
+  {
+    title: "Rituale",
     year:  "2023",
     medium:"Oil on canvas",
     size:  "10 × 10 cm",
