@@ -15,26 +15,18 @@
 *{box-sizing:border-box;}
 html,body{margin:0;}
 img{max-width:100%;}
+/* one committed look: dark ground, so the paintings carry the page */
 :root{
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
-  --paper:#f0f0ef;
-  --ink:#16181a;
-  --muted:#6b7173;
-  --rule:#d8dad9;
-  --panel:#e7e9e8;
-  --accent:#2f3f8f;
+  color-scheme:dark;
+  --paper:#111213;
+  --ink:#eceded;
+  --muted:#8d9394;
+  --rule:#2a2d2e;
+  --panel:#1a1c1d;
+  --accent:#a8b6ff;
   --sans:"Instrument Sans",Helvetica,Arial,sans-serif;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --paper:#121314; --ink:#e9eae9; --muted:#9aa0a1; --rule:#292c2d;
-    --panel:#1b1d1e; --accent:#93a6ff; color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#121314; --ink:#e9eae9; --muted:#9aa0a1; --rule:#292c2d;
-  --panel:#1b1d1e; --accent:#93a6ff; color-scheme:dark;
 }
 
 body{background:var(--paper);color:var(--ink);
@@ -83,7 +75,7 @@ a{color:inherit;}
 .line{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-variant-numeric:tabular-nums;}
 .buy{text-decoration:none;color:var(--accent);border:1px solid var(--accent);
   padding:6px 13px;font-size:13px;}
-.buy:hover{background:var(--accent);color:var(--paper);}
+.buy:hover{background:var(--accent);color:#111213;}
 .work.sold .line{color:var(--muted);}
 
 .foot{display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--rule);padding-top:26px;
