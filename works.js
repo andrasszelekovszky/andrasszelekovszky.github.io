@@ -17,6 +17,18 @@
 const WORKS = [
 
   {
+    title: "Rituale",
+    year:  "2026",
+    medium:"Oil on canvas",
+    size:  "30 × 40 cm",
+    price: "CHF 1,250",
+    image: "images/rituale-2026.jpg",
+    verso: "",
+    ratio: "4/3",
+    sold:  false
+  },
+
+  {
     title: "Momentum",
     year:  "2025",
     medium:"Oil on canvas",
