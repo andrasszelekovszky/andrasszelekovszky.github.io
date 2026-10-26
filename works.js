@@ -10,13 +10,20 @@
    ratio  → shape of the photos: "1/1" square, "4/5" tall,
             "5/4" wide, "3/4" tall. Match the crop.
 
+   ref    → the work's inventory number, AS-<year>-<nn>. It is
+            permanent: once a work has one, never change it, even
+            if the work is sold or the order on the site changes.
+            For a new work, take the next free number of its year.
+
    Every available work shows an Enquire button that opens an
-   email to you with the work's details already written in.
+   email to you quoting that reference, so you always know which
+   work someone means even when several share a title.
    ─────────────────────────────────────────────────────────────── */
 
 const WORKS = [
 
   {
+    ref:   "AS-2026-01",
     title: "Rituale",
     year:  "2026",
     medium:"Oil on canvas",
@@ -29,6 +36,7 @@ const WORKS = [
   },
 
   {
+    ref:   "AS-2025-02",
     title: "Momentum",
     year:  "2025",
     medium:"Oil on canvas",
@@ -41,6 +49,7 @@ const WORKS = [
   },
 
   {
+    ref:   "AS-2025-01",
     title: "Momentum",
     year:  "2025",
     medium:"Oil on canvas",
@@ -53,6 +62,7 @@ const WORKS = [
   },
 
   {
+    ref:   "AS-2024-03",
     title: "Rituale",
     year:  "2024",
     medium:"Oil on canvas",
@@ -65,6 +75,7 @@ const WORKS = [
   },
 
   {
+    ref:   "AS-2024-02",
     title: "Rituale",
     year:  "2024",
     medium:"Oil on canvas",
@@ -77,6 +88,7 @@ const WORKS = [
   },
 
   {
+    ref:   "AS-2024-01",
     title: "Rituale",
     year:  "2024",
     medium:"Oil on canvas",
@@ -89,6 +101,7 @@ const WORKS = [
   },
 
   {
+    ref:   "AS-2023-01",
     title: "Rituale",
     year:  "2023",
     medium:"Oil on canvas",

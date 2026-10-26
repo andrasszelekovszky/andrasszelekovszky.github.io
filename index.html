@@ -70,6 +70,8 @@ a{color:inherit;}
 /* separator: equal space either side, sitting on the middle of the line */
 .sep{display:inline-block;width:1.4em;text-align:center;vertical-align:middle;
   position:relative;top:-0.06em;}
+.ref{font-size:11px;letter-spacing:.12em;color:var(--muted);margin-bottom:-6px;
+  font-variant-numeric:tabular-nums;}
 .work h2{margin:0;font-size:15px;font-weight:500;letter-spacing:-0.005em;}
 .work h2 .yr{font-weight:400;color:var(--muted);}
 .line{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-variant-numeric:tabular-nums;}
@@ -172,11 +174,15 @@ a{color:inherit;}
         + '<div class="dots"><i class="on"></i><i></i></div>'
       : '<div class="plates">' + plate(w.image,'Image — ' + ratio) + '</div>';
 
-    var subject = encodeURIComponent('Enquiry — ' + w.title + ' (' + w.year + ')');
+    var ref = w.ref || '';
+    var subject = encodeURIComponent(
+      'Enquiry — ' + (ref ? ref + ' · ' : '') + w.title + ' (' + w.year + ')');
     var body = encodeURIComponent(
-      'Hello András,\n\nI am interested in ' + w.title + ' (' + w.year + '), '
-      + w.medium + ', ' + withInches(w.size) + (w.price ? ', ' + w.price : '')
-      + '.\n\nCould you tell me about availability and shipping?\n\n');
+      'Hello András,\n\nI am interested in this work:\n\n'
+      + (ref ? 'Ref.  ' + ref + '\n' : '')
+      + w.title + ', ' + w.year + '\n'
+      + w.medium + ', ' + withInches(w.size) + (w.price ? '\n' + w.price : '')
+      + '\n\nCould you tell me about availability and shipping?\n\n');
     var line = w.sold
       ? 'Sold'
       : esc(w.price || 'Price on request')
@@ -185,6 +191,7 @@ a{color:inherit;}
 
     return '<article class="work' + (w.sold ? ' sold' : '') + '">'
       + plates
+      + (ref ? '<p class="ref">' + esc(ref) + '</p>' : '')
       + '<h2>' + esc(w.title) + ' <span class="yr">' + esc(w.year) + '</span></h2>'
       + '<p class="meta">' + esc(w.medium) + '<span class="sep">·</span>' + esc(withInches(w.size)) + '</p>'
       + '<p class="line">' + line + '</p>'
