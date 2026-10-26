@@ -75,6 +75,9 @@ a{color:inherit;}
 .dots i.on{background:var(--muted);}
 
 .meta{color:var(--muted);}
+/* separator: equal space either side, sitting on the middle of the line */
+.sep{display:inline-block;width:1.4em;text-align:center;vertical-align:middle;
+  position:relative;top:-0.06em;}
 .work h2{margin:0;font-size:15px;font-weight:500;letter-spacing:-0.005em;}
 .work h2 .yr{font-weight:400;color:var(--muted);}
 .line{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-variant-numeric:tabular-nums;}
@@ -179,7 +182,7 @@ a{color:inherit;}
     return '<article class="work' + (w.sold ? ' sold' : '') + '">'
       + plates
       + '<h2>' + esc(w.title) + ' <span class="yr">' + esc(w.year) + '</span></h2>'
-      + '<p class="meta">' + esc(w.medium) + ' · ' + esc(w.size) + '</p>'
+      + '<p class="meta">' + esc(w.medium) + '<span class="sep">·</span>' + esc(w.size) + '</p>'
       + '<p class="line">' + line + '</p>'
       + '</article>';
   }).join(''); }
