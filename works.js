@@ -58,6 +58,18 @@ const WORKS = [
     medium:"Oil on canvas",
     size:  "10 × 10 cm",
     price: "CHF 950",
+    image: "images/rituale-2024-c.jpg",
+    verso: "",
+    ratio: "1/1",
+    sold:  false
+  },
+
+  {
+    title: "Rituale",
+    year:  "2024",
+    medium:"Oil on canvas",
+    size:  "10 × 10 cm",
+    price: "CHF 950",
     image: "images/rituale-2024-b.jpg",
     verso: "",
     ratio: "1/1",
