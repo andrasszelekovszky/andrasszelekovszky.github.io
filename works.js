@@ -5,8 +5,10 @@
    block, paste it at the top of the list, change the values.
    To mark one sold: change  sold: false  to  sold: true
 
-   image  → photo in the images/ folder: "images/filename.jpg"
-   ratio  → shape of the photo: "1/1" square, "4/5" tall,
+   image  → front of the work: "images/filename.jpg"
+   verso  → back of the work, shown beside it. Always send me
+            both photos. Leave "" and only the front shows.
+   ratio  → shape of the photos: "1/1" square, "4/5" tall,
             "5/4" wide, "3/4" tall. Match the crop.
    buy    → Stripe Payment Link. Leave "" and no button shows.
    ─────────────────────────────────────────────────────────────── */
@@ -20,6 +22,7 @@ const WORKS = [
     size:  "10 × 10 cm",
     price: "EUR 1,000",
     image: "images/rituale-2023.jpg",
+    verso: "images/rituale-2023-verso.jpg",
     ratio: "1/1",
     buy:   "",
     sold:  false

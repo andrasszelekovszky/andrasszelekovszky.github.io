@@ -44,9 +44,13 @@ a{color:inherit;}
 
 .works{display:flex;flex-direction:column;gap:clamp(44px,8vw,68px);}
 .work{display:flex;flex-direction:column;gap:10px;min-width:0;}
-.plate{background:var(--panel);max-width:100%;display:grid;place-items:center;overflow:hidden;}
+.plates{display:grid;grid-template-columns:1fr;gap:8px;}
+.plates.pair{grid-template-columns:1fr 1fr;}
+.plate{background:var(--panel);max-width:100%;display:grid;place-items:center;overflow:hidden;min-width:0;}
 .plate span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
 .plate img{display:block;width:100%;height:100%;object-fit:cover;}
+.caps{display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:-4px;}
 .work h2{margin:0;font-size:15px;font-weight:500;letter-spacing:-0.005em;}
 .work h2 .yr{font-weight:400;color:var(--muted);}
 .meta{color:var(--muted);}
@@ -99,14 +103,22 @@ a{color:inherit;}
   ig.href = 'https://instagram.com/' + STUDIO.instagram;
 
   document.getElementById('works').innerHTML = WORKS.map(function(w){
-    var plate = w.image
-      ? '<img src="' + esc(w.image) + '" alt="' + esc(w.title) + '">'
-      : '<span>Image — ' + esc(w.ratio || '4/5') + '</span>';
+    var ratio = w.ratio || '4/5';
+    function plate(src, label){
+      return '<div class="plate" style="aspect-ratio:' + esc(ratio) + '">'
+        + (src ? '<img src="' + esc(src) + '" alt="' + esc(w.title) + ' — ' + label + '">'
+               : '<span>' + esc(label) + '</span>')
+        + '</div>';
+    }
+    var plates = w.verso
+      ? '<div class="plates pair">' + plate(w.image,'Recto') + plate(w.verso,'Verso') + '</div>'
+        + '<div class="caps"><span>Recto</span><span>Verso</span></div>'
+      : '<div class="plates">' + plate(w.image,'Image — ' + ratio) + '</div>';
     var line = w.sold
       ? 'Sold'
       : esc(w.price) + (w.buy ? ' <a class="buy" href="' + esc(w.buy) + '">Acquire</a>' : '');
     return '<article class="work' + (w.sold ? ' sold' : '') + '">'
-      + '<div class="plate" style="aspect-ratio:' + esc(w.ratio || '4/5') + '">' + plate + '</div>'
+      + plates
       + '<h2>' + esc(w.title) + ' <span class="yr">' + esc(w.year) + '</span></h2>'
       + '<p class="meta">' + esc(w.medium) + ' · ' + esc(w.size) + '</p>'
       + '<p class="line">' + line + '</p>'
