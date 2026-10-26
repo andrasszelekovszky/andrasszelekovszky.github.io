@@ -21,7 +21,7 @@ const WORKS = [
     year:  "2024",
     medium:"Oil on canvas",
     size:  "10 × 10 cm",
-    price: "",
+    price: "CHF 950",
     image: "images/rituale-2024.jpg",
     verso: "",
     ratio: "1/1",
