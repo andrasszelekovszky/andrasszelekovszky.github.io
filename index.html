@@ -53,6 +53,12 @@ a{color:inherit;}
 .name{font-weight:500;}
 .intro{color:var(--muted);max-width:48ch;}
 
+.sortbar{display:flex;}
+.sortbar button{font-family:inherit;font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+  background:none;border:0;border-bottom:1px solid var(--rule);color:var(--muted);
+  padding:0 0 4px;cursor:pointer;}
+.sortbar button:hover{color:var(--accent);border-color:var(--accent);}
+
 .works{display:flex;flex-direction:column;gap:clamp(44px,8vw,68px);}
 .work{display:flex;flex-direction:column;gap:10px;min-width:0;}
 
@@ -112,6 +118,8 @@ a{color:inherit;}
     <p class="intro" id="intro"></p>
   </header>
 
+  <div class="sortbar"><button type="button" id="sort" aria-live="polite"></button></div>
+
   <main class="works" id="works"></main>
 
   <footer class="foot">
@@ -135,14 +143,16 @@ a{color:inherit;}
   ig.textContent = '@' + STUDIO.instagram;
   ig.href = 'https://instagram.com/' + STUDIO.instagram;
 
-  // oldest first; works of the same year keep the order they have in works.js
-  var ordered = WORKS.map(function(w,i){ return [w,i]; })
-    .sort(function(a,b){
-      return (parseInt(a[0].year,10)||0) - (parseInt(b[0].year,10)||0) || a[1]-b[1];
-    })
-    .map(function(p){ return p[0]; });
+  function ordered(newestFirst){
+    return WORKS.map(function(w,i){ return [w,i]; })
+      .sort(function(a,b){
+        var d = (parseInt(a[0].year,10)||0) - (parseInt(b[0].year,10)||0) || a[1]-b[1];
+        return newestFirst ? -d : d;
+      })
+      .map(function(p){ return p[0]; });
+  }
 
-  document.getElementById('works').innerHTML = ordered.map(function(w){
+  function markup(list){ return list.map(function(w){
     var ratio = w.ratio || '4/5';
     function plate(src, label){
       return '<div class="plate" style="aspect-ratio:' + esc(ratio) + '">'
@@ -172,16 +182,33 @@ a{color:inherit;}
       + '<p class="meta">' + esc(w.medium) + ' · ' + esc(w.size) + '</p>'
       + '<p class="line">' + line + '</p>'
       + '</article>';
-  }).join('');
+  }).join(''); }
 
-  document.querySelectorAll('.work').forEach(function(a){
-    var strip=a.querySelector('.plates'), dots=a.querySelector('.dots');
-    if(!strip||!dots) return;
-    strip.addEventListener('scroll',function(){
-      var i = Math.round(strip.scrollLeft / strip.clientWidth);
-      dots.querySelectorAll('i').forEach(function(d,n){ d.classList.toggle('on', n===i); });
-    },{passive:true});
+  var worksEl = document.getElementById('works');
+  var sortEl  = document.getElementById('sort');
+  var newestFirst = false;
+  try{ newestFirst = localStorage.getItem('order') === 'new'; }catch(e){}
+
+  function render(){
+    worksEl.innerHTML = markup(ordered(newestFirst));
+    sortEl.textContent = newestFirst ? 'Newest first' : 'Oldest first';
+    worksEl.querySelectorAll('.work').forEach(function(a){
+      var strip=a.querySelector('.plates'), dots=a.querySelector('.dots');
+      if(!strip||!dots) return;
+      strip.addEventListener('scroll',function(){
+        var i = Math.round(strip.scrollLeft / strip.clientWidth);
+        dots.querySelectorAll('i').forEach(function(d,n){ d.classList.toggle('on', n===i); });
+      },{passive:true});
+    });
+  }
+
+  sortEl.addEventListener('click',function(){
+    newestFirst = !newestFirst;
+    try{ localStorage.setItem('order', newestFirst ? 'new' : 'old'); }catch(e){}
+    render();
   });
+
+  render();
 
 })();
 </script>
