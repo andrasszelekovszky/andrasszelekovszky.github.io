@@ -69,11 +69,6 @@ a{color:inherit;}
 
 .foot{display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--rule);padding-top:26px;
   color:var(--muted);}
-.mail{color:var(--ink);user-select:all;}
-.copy{font-family:inherit;font-size:12px;background:none;border:1px solid var(--rule);
-  color:var(--muted);padding:5px 11px;cursor:pointer;}
-.copy:hover{border-color:var(--accent);color:var(--accent);}
-.mailrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
 
 /* ── desktop ───────────────────────────────────────────────── */
 @media (min-width:900px){
@@ -109,10 +104,6 @@ a{color:inherit;}
 
   <footer class="foot">
     <p id="terms"></p>
-    <div class="mailrow">
-      <span class="mail" id="mail"></span>
-      <button class="copy" id="copy" type="button">Copy</button>
-    </div>
     <p><a id="ig" href="#"></a></p>
   </footer>
 
@@ -126,7 +117,6 @@ a{color:inherit;}
   document.getElementById('name').textContent  = STUDIO.name;
   document.getElementById('intro').textContent = STUDIO.intro;
   document.getElementById('terms').textContent = STUDIO.terms;
-  document.getElementById('mail').textContent  = STUDIO.email;
   var ig = document.getElementById('ig');
   ig.textContent = '@' + STUDIO.instagram;
   ig.href = 'https://instagram.com/' + STUDIO.instagram;
@@ -171,18 +161,5 @@ a{color:inherit;}
     },{passive:true});
   });
 
-  var btn=document.getElementById('copy'), mail=document.getElementById('mail');
-  function select(){
-    var r=document.createRange(); r.selectNodeContents(mail);
-    var s=getSelection(); s.removeAllRanges(); s.addRange(r);
-    btn.textContent='Select and copy';
-  }
-  btn.addEventListener('click',function(){
-    try{
-      navigator.clipboard.writeText(mail.textContent.trim()).then(function(){
-        btn.textContent='Copied'; setTimeout(function(){btn.textContent='Copy';},1600);
-      },select);
-    }catch(e){select();}
-  });
 })();
 </script>
