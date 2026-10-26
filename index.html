@@ -155,6 +155,18 @@ a{color:inherit;}
       .map(function(p){ return p[0]; });
   }
 
+  // "30 × 40 cm" -> "30 × 40 cm / 11.8 × 15.7 in"
+  function withInches(size){
+    if(!size || !/cm\s*$/i.test(size)) return size || '';
+    var nums = size.match(/\d+(?:[.,]\d+)?/g);
+    if(!nums || !nums.length) return size;
+    var inches = nums.map(function(n){
+      var v = parseFloat(n.replace(',','.')) / 2.54;
+      return (Math.round(v*10)/10).toFixed(1);
+    }).join(' × ');
+    return size + ' / ' + inches + ' in';
+  }
+
   function markup(list){ return list.map(function(w){
     var ratio = w.ratio || '4/5';
     function plate(src, label){
@@ -171,7 +183,7 @@ a{color:inherit;}
     var subject = encodeURIComponent('Enquiry — ' + w.title + ' (' + w.year + ')');
     var body = encodeURIComponent(
       'Hello András,\n\nI am interested in ' + w.title + ' (' + w.year + '), '
-      + w.medium + ', ' + w.size + (w.price ? ', ' + w.price : '')
+      + w.medium + ', ' + withInches(w.size) + (w.price ? ', ' + w.price : '')
       + '.\n\nCould you tell me about availability and shipping?\n\n');
     var line = w.sold
       ? 'Sold'
@@ -182,7 +194,7 @@ a{color:inherit;}
     return '<article class="work' + (w.sold ? ' sold' : '') + '">'
       + plates
       + '<h2>' + esc(w.title) + ' <span class="yr">' + esc(w.year) + '</span></h2>'
-      + '<p class="meta">' + esc(w.medium) + '<span class="sep">·</span>' + esc(w.size) + '</p>'
+      + '<p class="meta">' + esc(w.medium) + '<span class="sep">·</span>' + esc(withInches(w.size)) + '</p>'
       + '<p class="line">' + line + '</p>'
       + '</article>';
   }).join(''); }
