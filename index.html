@@ -44,13 +44,16 @@ a{color:inherit;}
 
 .works{display:flex;flex-direction:column;gap:clamp(44px,8vw,68px);}
 .work{display:flex;flex-direction:column;gap:10px;min-width:0;}
-.plates{display:grid;grid-template-columns:1fr;gap:8px;}
-.plates.pair{grid-template-columns:1fr 1fr;}
-.plate{background:var(--panel);max-width:100%;display:grid;place-items:center;overflow:hidden;min-width:0;}
+.plates{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;}
+.plates::-webkit-scrollbar{display:none;}
+.plate{flex:0 0 100%;scroll-snap-align:start;background:var(--panel);
+  display:grid;place-items:center;overflow:hidden;min-width:0;}
 .plate span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
 .plate img{display:block;width:100%;height:100%;object-fit:cover;}
-.caps{display:grid;grid-template-columns:1fr 1fr;gap:8px;
-  font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:-4px;}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:-2px;}
+.dots i{width:5px;height:5px;border-radius:50%;background:var(--rule);display:block;}
+.dots i.on{background:var(--muted);}
 .work h2{margin:0;font-size:15px;font-weight:500;letter-spacing:-0.005em;}
 .work h2 .yr{font-weight:400;color:var(--muted);}
 .meta{color:var(--muted);}
@@ -111,8 +114,8 @@ a{color:inherit;}
         + '</div>';
     }
     var plates = w.verso
-      ? '<div class="plates pair">' + plate(w.image,'Recto') + plate(w.verso,'Verso') + '</div>'
-        + '<div class="caps"><span>Recto</span><span>Verso</span></div>'
+      ? '<div class="plates">' + plate(w.image,'Front') + plate(w.verso,'Back') + '</div>'
+        + '<div class="dots"><i class="on"></i><i></i></div>'
       : '<div class="plates">' + plate(w.image,'Image — ' + ratio) + '</div>';
     var line = w.sold
       ? 'Sold'
@@ -124,6 +127,15 @@ a{color:inherit;}
       + '<p class="line">' + line + '</p>'
       + '</article>';
   }).join('');
+
+  document.querySelectorAll('.work').forEach(function(a){
+    var strip=a.querySelector('.plates'), dots=a.querySelector('.dots');
+    if(!strip||!dots) return;
+    strip.addEventListener('scroll',function(){
+      var i = Math.round(strip.scrollLeft / strip.clientWidth);
+      dots.querySelectorAll('i').forEach(function(d,n){ d.classList.toggle('on', n===i); });
+    },{passive:true});
+  });
 
   var btn=document.getElementById('copy'), mail=document.getElementById('mail');
   function select(){
