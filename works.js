@@ -58,7 +58,7 @@ const WORKS = [
     image: "images/rituale-2025.jpg",
     verso: "",
     ratio: "1/1",
-    sold:  false
+    sold:  true
   },
 
   {
