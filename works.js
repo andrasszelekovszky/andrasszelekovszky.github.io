@@ -36,6 +36,19 @@ const WORKS = [
   },
 
   {
+    ref:   "AS-2025-03",
+    title: "Momentum",
+    year:  "2025",
+    medium:"Oil on canvas",
+    size:  "10 × 10 cm",
+    price: "CHF 950",
+    image: "images/momentum-2025-03.jpg",
+    verso: "",
+    ratio: "1/1",
+    sold:  false
+  },
+
+  {
     ref:   "AS-2025-02",
     title: "Momentum",
     year:  "2025",
